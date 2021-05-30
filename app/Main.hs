@@ -27,7 +27,8 @@ pageSimple santas assigns = html_
     # div_A (A.id_ "result") ""
     # p_ "Folgende Wichtel machen mit:"
     # santaList santas
-    # simpleScript
+    # jsDependencies
+    # simpleScript "examle"
     )
   )
 

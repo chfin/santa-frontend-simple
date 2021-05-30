@@ -19,7 +19,7 @@ check :: (Eq a) => [Assign a] -> [Incop a] -> Bool
 check assigns incops = all isComp assigns
  where
   eqAssign asgn (i1, i2) = asgn == (i1, i2) || asgn == (i2, i1)
-  isComp asgn@(s1, s2) = (s1 /= s2) && all (not . eqAssign asgn) incops
+  isComp asgn@(s1, s2) = (s1 /= s2) && not (any (eqAssign asgn) incops)
 
 randomSantas :: GenIO -> [a] -> IO [Assign a]
 randomSantas gen santas = do
@@ -37,16 +37,19 @@ jsAssigns as = "var assignment = {" ++ jsas ++ "};"
   jsas = intercalate ", " $ map jsa as
   jsa (from, to) = "\"" ++ show from ++ "\": \"" ++ show to ++ "\""
 
-assignmentScript :: (Show a) => [Assign a] -> ( 'Script > Raw String)
+assignmentScript :: (Show a) => [Assign a] -> ('Script > Raw String)
 assignmentScript assigns = script_ $ Raw $ jsAssigns assigns
 
-santaList :: (Show a) => [a] -> ( 'Ul > [ 'Li > String])
+santaList :: (Show a) => [a] -> ('Ul > [ 'Li > String])
 santaList santas = ul_ (map (li_ . show) santas)
 
-simpleScript :: (:@:) 'Script ( 'SrcA := String) String
-simpleScript = script_A (A.src_ "wichteln.js") ""
+simpleScript
+  :: String -> ('Script > Raw String) # (:@:) 'Script ('SrcA := String) String
+simpleScript group =
+  script_ (Raw $ "const GROUP = " <> show group <> ";")
+    # script_A (A.src_ "wichteln.js") ""
 
-backendScript :: (:@:) 'Script ( 'SrcA := String) String
+backendScript :: (:@:) 'Script ('SrcA := String) String
 backendScript = script_A (A.src_ "santa/static/api.js") ""
 
 jsDependencies =

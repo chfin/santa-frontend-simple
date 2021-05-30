@@ -17,12 +17,12 @@ document.getElementById("name").onkeydown = function() {
     }
 };
 
-var santalist = document.getElementById("santas");
-for (var santa of Object.keys(assignment)) {
-    var li = document.createElement("LI");
-    li.appendChild(document.createTextNode(santa));
-    santalist.appendChild(li);
-}
+// var santalist = document.getElementById("santas");
+// for (var santa of Object.keys(assignment)) {
+//     var li = document.createElement("LI");
+//     li.appendChild(document.createTextNode(santa));
+//     santalist.appendChild(li);
+// }
 
 // wishlist
 // ========
