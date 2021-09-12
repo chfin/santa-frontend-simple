@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0f76e8ad99c4924cb02118a0ebe2aedbe66c5eab4713d2a0f583c83bac655b90
+-- hash: ede5b1c0e72eb1f8f02c27665ae04a277e8adb3cb47e452d8e6095f30412caf8
 
 name:           santa-frontend-simple
 version:        0.1.0.0
@@ -43,6 +43,7 @@ executable make-santa
   main-is: Main.hs
   other-modules:
       FamilienDing
+      WeiHeu
       Paths_santa_frontend_simple
   hs-source-dirs:
       app

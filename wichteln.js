@@ -17,15 +17,19 @@ document.getElementById("name").onkeydown = function() {
     }
 };
 
-// var santalist = document.getElementById("santas");
-// for (var santa of Object.keys(assignment)) {
-//     var li = document.createElement("LI");
-//     li.appendChild(document.createTextNode(santa));
-//     santalist.appendChild(li);
-// }
+var santalist = document.getElementById("santas");
+for (var santa of Object.keys(assignment)) {
+    var li = document.createElement("LI");
+    li.appendChild(document.createTextNode(santa));
+    santalist.appendChild(li);
+}
 
 // wishlist
 // ========
+
+if (typeof group === 'undefined') {
+    alert("Wichtelgruppe nicht definiert! Bitte kontaktiere den Systemwichtel!");
+}
 
 const h = maquette.h;
 const projector = maquette.createProjector();
@@ -34,7 +38,8 @@ var wishdiv = document.getElementById("wishlist");
 var wishlist = [];
 
 function fetchWishes() {
-    getWishes(
+    getByGroupWishes(
+        group,
         function (data) {
             wishlist = data;
             projector.scheduleRender();
@@ -49,18 +54,20 @@ fetchWishes();
 function deleteWish(id, content) {
     console.log("deleting "+id);
     if (confirm("Sicher, dass du an "+content+" nicht mehr interessiert bist? Na gut, dann lösche ich das jetzt mal."))
-    deleteWishByWishid(
-        id,
-        function () { fetchWishes(); },
-        function (err) { alert("Verwünscht! Ein Fehler ist aufgetreten: "+err); }
-    );
+        deleteByGroupWishByWishid(
+            group,
+            id,
+            function () { fetchWishes(); },
+            function (err) { alert("Verwünscht! Ein Fehler ist aufgetreten: "+err); }
+        );
 }
 
 function addWish() {
     var input = document.getElementById("newWish");
     var content = input.value;
     console.log("adding wish "+content);
-    postAddWish(
+    postByGroupAddWish(
+        group,
         content,
         function () { fetchWishes(); },
         function (err) { alert("Verwünscht! Ein Fehler ist aufgetreten: "+err); }
