@@ -1,7 +1,6 @@
 module Main where
 
 import           SantaLib
-import qualified Html.Attribute                as A
 import           Html
 
 data Santa = Gabi
@@ -13,26 +12,26 @@ data Santa = Gabi
 santas :: [Santa]
 santas = enumFrom Gabi
 
-incops = [(Gabi, Klaus), (Helmut, Irmgard)] ++ zip santas santas
+incops = reflexive [(Gabi, Klaus), (Helmut, Irmgard)]
 
-pageSimple santas assigns = html_
-  (head_ (title_ "Wichteln 2019" # script_ (Raw $ jsAssigns assigns)) # body_
-    ( h1_ "Wichteln 2019"
-    # img_A (A.src_ "wichtel.gif")
-    # p_
-        "Hallo liebe*r Wichtel*in. Gib hier deinen Namen ein und schubse den Button."
-    # p_ "Hey! Nicht einfach irgendwelche anderen Namen eingeben!"
-    # input_A (A.id_ "name")
-    # button_A (A.id_ "pushbutton") "Gimme dat Wichtelname!"
-    # div_A (A.id_ "result") ""
-    # p_ "Folgende Wichtel machen mit:"
-    # santaList santas
-    # jsDependencies
-    # simpleScript "examle"
-    )
-  )
+-- pageSimple santas assigns = Html :>
+--   (Head :> (Title :> "Wichteln 2019" # Script :> (jsAssigns assigns)) # Body :>
+--     ( H1 :> "Wichteln 2019"
+--     # Img :@ (SrcA := "wichtel.gif")
+--     # P :> "Hallo liebe:r Wichtel:in. Gib hier deinen Namen ein und schubse den Button."
+--     # P :> "Hey! Nicht einfach irgendwelche anderen Namen eingeben!"
+--     # Input :@ (IdA := "name")
+--     # Button :@ (IdA := "pushbutton") :> "Gimme dat Wichtelname!"
+--     # Div :@ (IdA := "result")
+--     # P :> "Folgende Wichtel machen mit:"
+--     # santaList santas
+--     # jsDependencies
+--     # simpleScript "examle"
+--     )
+--   )
 
 main :: IO ()
 main = do
   assign <- makeSanta santas incops
-  putStrLn $ renderString (pageSimple santas assign)
+  -- putStrLn $ renderString (pageSimple santas assign)
+  putStrLn $ jsAssigns assign

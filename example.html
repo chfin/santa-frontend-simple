@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Wichteln 2023</title>
+    <meta charset="UTF-8">
+    <script src="assignment-example.js"></script>
+    <link rel="stylesheet" href="wichteln.css">
+    <script src="https://unpkg.com/maquette@3.3.4/dist/maquette.umd.js"></script>
+    <script src="santa/static/api.js"></script>
+    <script type="text/javascript">
+      var group="example";
+    </script>
+  </head>
+  <body>
+    <h1>WeiHeu Wichteln 2023</h1>
+    <img src="wichtel.gif">
+    <p>Hallo liebe:r Wichtel:in. Gib hier deinen Namen ein und schubse den Button.</p>
+    <p>Hey! Nicht einfach irgendwelche anderen Namen eingeben!</p>
+    <input id="name">
+    <button id="pushbutton">Gimme dat Wichtelname!</button>
+    <div id="result"/>
+    <p>Folgende Wichtel machen mit:</p>
+    <ul id="santas"></ul>
+    <h2>Wunschliste</h2>
+    <p>Hier können anonym Wünsche oder Geschenkideen eingetragen werden.</p>
+    <div id="wishlist"/>
+    <script src="wichteln.js"></script>
+  </body>
+</html>
